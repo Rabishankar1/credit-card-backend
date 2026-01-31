@@ -4,7 +4,7 @@ const {
   applicationStatus,
   ALLOWED_CREDIT_SCORE,
 } = require("../constants/constant");
-const { getUserByPanNumber, createUser } = require("../dao/userDao");
+const { getUserByPanNumber, createUser, getUserById } = require("../dao/userDao");
 const {
   saveApplication,
   getApplicationById,
@@ -134,22 +134,25 @@ const createApplicationController = async (req, res) => {
 
 const getApplicationController = async (req, res, next) => {
   try {
-    const { applicationId } = req.body;
+    const { id: applicationId } = req.params
     const applicationData = await getApplicationById(applicationId);
     if (!applicationData) return res.send({ message: "No application found" });
 
-    const userData = await getUserById(applicationId);
+    const userData = await getUserById(applicationData.user_id);
 
     const data = {
-      ...applicationData,
-      ...userData,
+      applicationId: applicationData.applicationId,
+      status: applicationData.status,
+      name: userData.name,
+      email: userData.email,
+      dob: userData.dob,
     };
 
     return res.send(data);
   } catch (err) {
-    res.send(500);
+    console.log('err', err)
+    res.sendStatus(500);
   }
-  j;
 };
 
 module.exports = {

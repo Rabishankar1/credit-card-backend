@@ -7,5 +7,5 @@ const router = express.Router();
 
 router.post('/checkEligibility', checkEligibilityValidator, checkEligibility)
 router.post('/application',createApplicationValidator, createApplicationController)
-router.post('/:id', getApplicationController)
+router.get('/application/:id', getApplicationController)
 module.exports = router;
