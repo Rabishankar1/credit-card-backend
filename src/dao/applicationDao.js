@@ -9,7 +9,7 @@ const saveApplication = async (data) => {
 }
 
 const getApplications = async () => {
-    return await Application.find()
+    return await Application.find().populate("user_id");
 }
 module.exports = {
     getApplicationById,
