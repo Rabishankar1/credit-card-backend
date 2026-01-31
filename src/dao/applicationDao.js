@@ -8,7 +8,11 @@ const saveApplication = async (data) => {
     return await Application.create(data);
 }
 
+const getApplications = async () => {
+    return await Application.find()
+}
 module.exports = {
     getApplicationById,
     saveApplication,
+    getApplications
 }
